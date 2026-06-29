@@ -228,14 +228,20 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
   .cat-grid{grid-template-columns:1fr;gap:2px}
   .cat-card{aspect-ratio:16/9}
   .cat-card.large{aspect-ratio:16/9}
-  .products-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .mobile-menu{padding:4rem 1.5rem 1.5rem}
+  .mobile-menu a{font-size:20px;padding:.7rem 0}
+  .mobile-menu-close{top:1rem;right:1rem;font-size:24px}
+  .products-grid{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;flex-wrap:nowrap}
+  .products-grid::-webkit-scrollbar{display:none}
+  .products-grid .prod-card{min-width:62vw;scroll-snap-align:start;flex-shrink:0}
   .prod-name{font-size:13px}
   .occ-grid{grid-template-columns:1fr 1fr;gap:2px}
   .trust-inner{grid-template-columns:1fr 1fr}
   .trust-item{padding:1.25rem .75rem}
   .trust-item:nth-child(3){border-right:none}
-  .testi-grid{grid-template-columns:1fr}
-  .testi-grid .testi-card:last-child{display:block}
+  .testi-grid{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;flex-wrap:nowrap}
+  .testi-grid::-webkit-scrollbar{display:none}
+  .testi-grid .testi-card{min-width:78vw;scroll-snap-align:start;flex-shrink:0}
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;align-items:flex-start}
   .banner-full{height:55vh}
@@ -334,7 +340,7 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
 .cat-card2 .cat-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;text-align:center}
 .cat-card2 .cat-count{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--white);font-size:8px;letter-spacing:1px;padding:3px 7px;border-radius:3px;font-weight:500}
 @media(max-width:900px){.cat-grid2{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.cat-grid2{grid-template-columns:repeat(2,1fr);gap:8px}}
+@media(max-width:600px){.cat-grid2{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;flex-wrap:nowrap}.cat-grid2::-webkit-scrollbar{display:none}.cat-grid2 .cat-card2{min-width:55vw;scroll-snap-align:start;flex-shrink:0}}
 </style>
 
 <div class="section" style="padding-bottom:1rem">
