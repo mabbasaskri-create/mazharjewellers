@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Earrings | Mazhar Jewellers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;
+  --white:#fdfcf8;
+  --gold:#b8965a;
+  --gold-light:#d4b07a;
+  --gold-pale:#f5ede0;
+  --charcoal:#1a1a1a;
+  --mid:#3a3a3a;
+  --muted:#888;
+  --border:#e8e0d4;
+  --red:#c0392b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+.topbar{background:var(--black);color:var(--white);text-align:center;font-size:11px;letter-spacing:1.8px;padding:10px 1rem;font-weight:300;line-height:1.5}
+.topbar span{color:var(--gold-light)}
+
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:64px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:3px;white-space:nowrap}
+.logo em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:1.2rem;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:2px;color:var(--mid);text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a.active{color:var(--gold)}
+.nav-icons{display:flex;gap:1rem;align-items:center}
+.nav-icon-btn{background:none;border:none;cursor:pointer;font-size:20px;color:var(--mid);transition:color .2s;padding:4px;line-height:1}
+.nav-icon-btn:hover{color:var(--gold)}
+.cart-btn{background:var(--black)!important;color:var(--white)!important;padding:8px 16px;font-size:10px;letter-spacing:2px;font-family:'Inter',sans-serif;border:none;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--black);transition:all .3s}
+
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:300;padding:5rem 2rem 2rem;flex-direction:column;gap:0}
+.mobile-menu.open{display:flex}
+.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:28px;cursor:pointer;color:var(--black)}
+.mobile-menu a{font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--black);padding:1rem 0;border-bottom:1px solid var(--border);display:block}
+.mobile-menu a:last-child{border-bottom:none}
+
+.section{max-width:1400px;margin:0 auto;padding:4rem 1.5rem}
+.section-hd{text-align:center;margin-bottom:3rem}
+.eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,52px);font-weight:300;line-height:1.1}
+.sec-sub{font-size:12px;color:var(--muted);margin-top:.5rem;line-height:1.8;letter-spacing:.3px}
+
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.prod-card{cursor:pointer}
+.prod-img{aspect-ratio:3/4;position:relative;overflow:hidden;background:#f5f0ea;margin-bottom:.75rem}
+.prod-img img{transition:transform .5s ease;object-fit:cover}
+.prod-card:hover .prod-img img{transform:scale(1.06)}
+.prod-badge{position:absolute;top:10px;left:10px;font-size:9px;letter-spacing:2px;padding:4px 8px;text-transform:uppercase;z-index:1}
+.b-new{background:var(--black);color:var(--white)}
+.b-sale{background:var(--red);color:var(--white)}
+.b-best{background:var(--gold);color:var(--white)}
+.prod-wish{position:absolute;top:10px;right:10px;background:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;font-size:15px;cursor:pointer;border:none;z-index:1}
+.prod-card:hover .prod-wish{opacity:1}
+.prod-add{position:absolute;bottom:0;left:0;right:0;background:var(--black);color:var(--white);text-align:center;padding:11px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;transform:translateY(100%);transition:transform .3s;cursor:pointer;border:none;font-family:'Inter',sans-serif;width:100%}
+.prod-card:hover .prod-add{transform:translateY(0)}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;color:var(--black);margin-bottom:3px;line-height:1.3}
+.prod-coll{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.prod-price{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.p-now{font-size:14px;font-weight:500;color:var(--black)}
+.p-old{font-size:12px;color:var(--muted);text-decoration:line-through}
+.p-off{font-size:10px;color:var(--red)}
+
+.trust-bar{background:var(--gold-pale);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.trust-item{text-align:center;padding:1.75rem 1rem;border-right:1px solid var(--border)}
+.trust-item:last-child{border-right:none}
+.trust-icon{font-size:26px;margin-bottom:.5rem}
+.trust-label{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.trust-sub{font-size:11px;color:var(--muted);line-height:1.5}
+
+.newsletter{background:var(--black);color:var(--white);display:grid;grid-template-columns:1fr 1fr;min-height:360px;overflow:hidden}
+.nl-img{position:relative;overflow:hidden}
+.nl-body{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.nl-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.nl-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:300;margin-bottom:.75rem;line-height:1.1}
+.nl-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:2rem;font-weight:300}
+.nl-row{display:flex;gap:0;max-width:400px}
+.nl-input{flex:1;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-right:none;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;outline:none}
+.nl-input::placeholder{color:rgba(255,255,255,.3)}
+.nl-btn{background:var(--gold);color:var(--white);padding:12px 20px;border:none;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .2s}
+.nl-btn:hover{background:var(--gold-light)}
+.nl-note{font-size:10px;color:rgba(255,255,255,.25);margin-top:.75rem;letter-spacing:.3px}
+
+footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
+.footer-inner{max-width:1400px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:3px;color:var(--white);margin-bottom:.75rem;display:block}
+.footer-logo em{color:var(--gold);font-style:normal}
+.footer-desc{font-size:11px;line-height:1.9;color:rgba(255,255,255,.35);font-weight:300;margin-bottom:1.25rem}
+.footer-social{display:flex;gap:10px}
+.soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:border-color .2s;color:rgba(255,255,255,.4)}
+.soc:hover{border-color:var(--gold);color:var(--gold)}
+.footer-col h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:1.1rem;font-weight:400}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.55rem}
+.footer-col a{font-size:11px;color:rgba(255,255,255,.35);transition:color .2s;font-weight:300}
+.footer-col a:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.25)}
+.pay-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pay-badge{background:rgba(255,255,255,.07);padding:3px 9px;font-size:9px;letter-spacing:1.5px;border-radius:2px;color:rgba(255,255,255,.35)}
+
+@media(max-width:1100px){.products-grid{grid-template-columns:repeat(3,1fr)}.footer-grid{grid-template-columns:1fr 1fr;gap:2rem}}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .cart-btn{display:none}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-inner{grid-template-columns:repeat(2,1fr)}
+  .trust-item:nth-child(2){border-right:none}
+  .trust-item:nth-child(3){border-right:1px solid var(--border)}
+  .trust-item:last-child{border-top:1px solid var(--border)}
+  .newsletter{grid-template-columns:1fr}
+  .nl-img{height:260px}
+  .nl-body{padding:2.5rem 2rem}
+}
+@media(max-width:600px){
+  .topbar{font-size:9px;letter-spacing:1px;padding:8px .75rem}
+  .nav-inner{padding:0 1rem;height:58px}
+  .logo{font-size:20px;letter-spacing:2px}
+  .section{padding:3rem 1.25rem}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .prod-name{font-size:13px}
+  .trust-inner{grid-template-columns:1fr 1fr}
+  .trust-item{padding:1.25rem .75rem}
+  .trust-item:nth-child(3){border-right:none}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .newsletter{grid-template-columns:1fr}
+  .nl-row{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.15);border-bottom:none}
+  .nl-btn{padding:12px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  SHAN-E-RAMADAN SALE &nbsp;<span>UP TO 40% OFF</span>&nbsp; · &nbsp;FREE DELIVERY OVER RS. 5,000 &nbsp;·&nbsp; COD AVAILABLE
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">MAZHAR <em>JEWELLERS</em></a>
+    <ul class="nav-links">
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="necklaces.html">NECKLACES</a></li>
+      <li><a href="earrings.html">EARRINGS</a></li>
+      <li><a href="rings.html">RINGS</a></li>
+      <li><a href="bracelets.html">BRACELETS</a></li>
+      <li><a href="gemstones.html">GEMSTONES</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" aria-label="Search">🔍</button>
+      <button class="nav-icon-btn" aria-label="Wishlist">♡</button>
+      <button class="nav-icon-btn" aria-label="Account">👤</button>
+      <button class="nav-icon-btn cart-btn">🛍 CART</button>
+      <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="home.html">Home</a>
+  <a href="necklaces.html">Necklaces</a>
+  <a href="earrings.html">Earrings</a>
+  <a href="rings.html">Rings</a>
+  <a href="bracelets.html">Bracelets</a>
+  <a href="gemstones.html">Gemstones</a>
+</div>
+
+<div class="section">
+  <div class="section-hd">
+    <p class="eyebrow">✦ Earrings</p>
+    <h1 class="sec-title">Earrings Collection</h1>
+    <p class="sec-sub">98+ designs — har style ke liye perfect pair</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge b-best">BEST SELLER</span>
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Drop Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Gema Collection</p>
+      <p class="prod-name">Oval Crystal Drop Earrings, Gold Tone</p>
+      <div class="prod-price"><span class="p-now">PKR 8,900</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge b-new">NEW IN</span>
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Stud Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Florere Collection</p>
+      <p class="prod-name">Flower Crystal Stud Earrings, Silver Tone</p>
+      <div class="prod-price"><span class="p-now">PKR 6,500</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&q=80" alt="Hoop Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Lumina Collection</p>
+      <p class="prod-name">Crystal Hoop Earrings, Gold Plated</p>
+      <div class="prod-price"><span class="p-now">PKR 9,200</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge b-sale">SALE 15%</span>
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Chandelier Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Regalia Collection</p>
+      <p class="prod-name">Crystal Chandelier Earrings, Rose Gold</p>
+      <div class="prod-price">
+        <span class="p-now">PKR 14,500</span>
+        <span class="p-old">PKR 17,000</span>
+        <span class="p-off">15% OFF</span>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Cluster Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Millenia Collection</p>
+      <p class="prod-name">Crystal Cluster Earrings, Silver Tone</p>
+      <div class="prod-price"><span class="p-now">PKR 11,800</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge b-new">NEW IN</span>
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Tassel Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Bohemia Collection</p>
+      <p class="prod-name">Crystal Tassel Earrings, Multicolor</p>
+      <div class="prod-price"><span class="p-now">PKR 10,200</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Geometric Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Matrix Collection</p>
+      <p class="prod-name">Geometric Crystal Earrings, Gold Tone</p>
+      <div class="prod-price"><span class="p-now">PKR 7,800</span></div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img">
+        <span class="prod-badge b-best">GIFT PICK</span>
+        <button class="prod-wish">♡</button>
+        <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80" alt="Pearl Earrings">
+        <button class="prod-add">ADD TO CART</button>
+      </div>
+      <p class="prod-coll">Pearl Essence Collection</p>
+      <p class="prod-name">Crystal Pearl Stud Earrings, White Gold</p>
+      <div class="prod-price"><span class="p-now">PKR 5,900</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <p class="trust-label">Free Delivery</p>
+      <p class="trust-sub">PKR 5,000+ par free<br>puri Pakistan mein</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💳</div>
+      <p class="trust-label">Easy Installments</p>
+      <p class="trust-sub">HBL, Meezan, JazzCash<br>3–12 months</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔄</div>
+      <p class="trust-label">30-Din Return</p>
+      <p class="trust-sub">Koi sawaal nahi<br>30 dino mein wapis</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <p class="trust-label">100% Authentic</p>
+      <p class="trust-sub">Austrian crystals<br>certificate ke sath</p>
+    </div>
+  </div>
+</div>
+
+<div class="newsletter">
+  <div class="nl-img">
+    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=900&q=80" alt="Newsletter">
+  </div>
+  <div class="nl-body">
+    <p class="nl-eyebrow">✦ Exclusive Updates</p>
+    <h2 class="nl-title">Naye Designs<br>Pehle Paayein</h2>
+    <p class="nl-sub">Subscribe karein aur pehle order par 10% discount paayein. Sirf khaas members ke liye early access.</p>
+    <div class="nl-row">
+      <input class="nl-input" type="email" placeholder="Apna email darj karein...">
+      <button class="nl-btn">SUBSCRIBE</button>
+    </div>
+    <p class="nl-note">Hum spam nahi bhejte. Kabhi bhi unsubscribe kar sakte hain.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">MAZHAR <em>JEWELLERS</em></span>
+        <p class="footer-desc">Premium quality jewellery with exquisite craftsmanship. Quality aur trust ka naam — Mazhar Jewellers.</p>
+        <div class="footer-social">
+          <div class="soc">f</div>
+          <div class="soc">in</div>
+          <div class="soc">▶</div>
+          <div class="soc">◉</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Order Track Karein</a></li>
+          <li><a href="#">Returns &amp; Exchange</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Product Care</a></li>
+          <li><a href="#">Humse Rabta Karein</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">Hamare Baare Mein</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press &amp; Media</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Store Finder</a></li>
+          <li><a href="#">Corporate Gifts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stores</h4>
+        <ul>
+          <li><a href="#">Lahore — DHA, MM Alam</a></li>
+          <li><a href="#">Karachi — Dolmen Mall</a></li>
+          <li><a href="#">Islamabad — Centaurus</a></li>
+          <li><a href="#">Peshawar — Hayatabad</a></li>
+          <li><a href="#">Faisalabad — D Ground</a></li>
+          <li><a href="#">Multan — Hussain Agahi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Mazhar Jewellers. Tamam haqooq mahfooz hain.</p>
+      <div class="pay-row">
+        <span class="pay-badge">VISA</span>
+        <span class="pay-badge">MC</span>
+        <span class="pay-badge">JazzCash</span>
+        <span class="pay-badge">EasyPaisa</span>
+        <span class="pay-badge">COD</span>
+        <span class="pay-badge">HBL</span>
+        <span class="pay-badge">Meezan</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var p=window.location.pathname.split('/').pop()||'index.html';if(p==='index.html')p='home.html';document.querySelectorAll('.nav-links a').forEach(function(a){if(a.getAttribute('href')===p)a.classList.add('active')})})();
+</script>
+</body>
+</html>

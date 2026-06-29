@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Mazhar Jewellers</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#0a0a0a;
+  --white:#fdfcf8;
+  --gold:#b8965a;
+  --gold-light:#d4b07a;
+  --gold-pale:#f5ede0;
+  --charcoal:#1a1a1a;
+  --mid:#3a3a3a;
+  --muted:#888;
+  --border:#e8e0d4;
+  --red:#c0392b;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--white);color:var(--black);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover}
+
+.topbar{background:var(--black);color:var(--white);text-align:center;font-size:11px;letter-spacing:1.8px;padding:10px 1rem;font-weight:300;line-height:1.5}
+.topbar span{color:var(--gold-light)}
+
+nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:64px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:3px;white-space:nowrap}
+.logo em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:1.2rem;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:2px;color:var(--mid);text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a.active{color:var(--gold)}
+.nav-icons{display:flex;gap:1rem;align-items:center}
+.nav-icon-btn{background:none;border:none;cursor:pointer;font-size:20px;color:var(--mid);transition:color .2s;padding:4px;line-height:1}
+.nav-icon-btn:hover{color:var(--gold)}
+.cart-btn{background:var(--black)!important;color:var(--white)!important;padding:8px 16px;font-size:10px;letter-spacing:2px;font-family:'Inter',sans-serif;border:none;cursor:pointer}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--black);transition:all .3s}
+
+.mobile-menu{display:none;position:fixed;inset:0;background:var(--white);z-index:300;padding:5rem 2rem 2rem;flex-direction:column;gap:0}
+.mobile-menu.open{display:flex}
+.mobile-menu-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;font-size:28px;cursor:pointer;color:var(--black)}
+.mobile-menu a{font-size:24px;font-family:'Cormorant Garamond',serif;color:var(--black);padding:1rem 0;border-bottom:1px solid var(--border);display:block}
+.mobile-menu a:last-child{border-bottom:none}
+
+.hero{height:100svh;min-height:500px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.hero-img{position:absolute;inset:0;background:#0a0a0a}
+.hero-img img{object-position:center top;opacity:.7}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.1) 100%)}
+.hero-content{position:relative;z-index:2;color:var(--white);padding:3rem 2rem 4rem;max-width:1400px;margin:0 auto;width:100%}
+.hero-eyebrow{font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,8vw,96px);font-weight:300;line-height:1.0;letter-spacing:-1px;margin-bottom:1rem}
+.hero-title em{color:var(--gold-light);font-style:italic}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.65);letter-spacing:.5px;line-height:1.8;margin-bottom:2rem;font-weight:300;max-width:480px}
+.hero-ctas{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--white);padding:13px 32px;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-family:'Inter',sans-serif;border:none;cursor:pointer;transition:background .2s;font-weight:400}
+.btn-gold:hover{background:var(--gold-light)}
+.btn-ghost{background:transparent;color:var(--white);padding:13px 32px;font-size:10px;letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);cursor:pointer;transition:all .2s;font-weight:300;font-family:'Inter',sans-serif}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+.marquee-wrap{background:var(--gold-pale);border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:12px 0}
+.marquee-track{display:flex;gap:3rem;white-space:nowrap;animation:marquee 25s linear infinite}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-track span{font-size:11px;letter-spacing:2.5px;color:var(--mid);text-transform:uppercase;flex-shrink:0}
+.marquee-track .dot{color:var(--gold);font-size:8px}
+
+.section{max-width:1400px;margin:0 auto;padding:4rem 1.5rem}
+.section-hd{text-align:center;margin-bottom:3rem}
+.eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,52px);font-weight:300;line-height:1.1}
+.sec-sub{font-size:12px;color:var(--muted);margin-top:.5rem;line-height:1.8;letter-spacing:.3px}
+
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:3px}
+.cat-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:2/3}
+.cat-card.large{grid-row:span 2;aspect-ratio:auto}
+.cat-card img{transition:transform .6s ease}
+.cat-card:hover img{transform:scale(1.05)}
+.cat-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.1) 55%,transparent 100%)}
+.cat-info{position:absolute;bottom:0;left:0;right:0;padding:1.25rem 1.5rem;color:var(--white)}
+.cat-label{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;display:block;line-height:1.2}
+.cat-count{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.55);margin-top:3px;display:block}
+.cat-arrow{font-size:10px;letter-spacing:2px;color:var(--gold-light);margin-top:6px;opacity:0;transition:opacity .25s;display:block}
+.cat-card:hover .cat-arrow{opacity:1}
+
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.prod-card{cursor:pointer}
+.prod-img{aspect-ratio:3/4;position:relative;overflow:hidden;background:#f5f0ea;margin-bottom:.75rem}
+.prod-img img{transition:transform .5s ease;object-fit:cover}
+.prod-card:hover .prod-img img{transform:scale(1.06)}
+.prod-badge{position:absolute;top:10px;left:10px;font-size:9px;letter-spacing:2px;padding:4px 8px;text-transform:uppercase;z-index:1}
+.b-new{background:var(--black);color:var(--white)}
+.b-sale{background:var(--red);color:var(--white)}
+.b-best{background:var(--gold);color:var(--white)}
+.prod-wish{position:absolute;top:10px;right:10px;background:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .25s;font-size:15px;cursor:pointer;border:none;z-index:1}
+.prod-card:hover .prod-wish{opacity:1}
+.prod-add{position:absolute;bottom:0;left:0;right:0;background:var(--black);color:var(--white);text-align:center;padding:11px;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;transform:translateY(100%);transition:transform .3s;cursor:pointer;border:none;font-family:'Inter',sans-serif;width:100%}
+.prod-card:hover .prod-add{transform:translateY(0)}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;color:var(--black);margin-bottom:3px;line-height:1.3}
+.prod-coll{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.prod-price{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.p-now{font-size:14px;font-weight:500;color:var(--black)}
+.p-old{font-size:12px;color:var(--muted);text-decoration:line-through}
+.p-off{font-size:10px;color:var(--red)}
+
+.banner-full{position:relative;overflow:hidden;height:70vh;min-height:400px;display:flex;align-items:center}
+.banner-full img{position:absolute;inset:0;object-fit:cover}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
+.banner-content{position:relative;z-index:2;color:var(--white);padding:3rem 4rem;max-width:600px}
+.banner-eyebrow{font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.banner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,58px);font-weight:300;line-height:1.1;margin-bottom:1rem}
+.banner-body{font-size:13px;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:2rem;font-weight:300}
+
+.occ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}
+.occ-card{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.occ-card img{transition:transform .5s}
+.occ-card:hover img{transform:scale(1.07)}
+.occ-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,transparent 60%)}
+.occ-info{position:absolute;bottom:0;left:0;right:0;padding:1.25rem;color:var(--white);text-align:center}
+.occ-icon{font-size:28px;margin-bottom:.4rem;opacity:.8}
+.occ-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:2px}
+.occ-price{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase}
+
+.sale-ribbon{background:var(--red);color:var(--white);display:grid;grid-template-columns:1fr auto;align-items:center;padding:2.5rem 4rem;gap:2rem}
+.sale-left .eyebrow{color:rgba(255,255,255,.7);margin-bottom:.5rem}
+.sale-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,44px);font-weight:300;line-height:1.1}
+.sale-sub{font-size:11px;letter-spacing:2px;opacity:.7;margin-top:.4rem;text-transform:uppercase}
+.btn-white{background:var(--white);color:var(--red);padding:13px 32px;font-size:10px;letter-spacing:3px;text-transform:uppercase;border:none;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;font-weight:500;transition:opacity .2s}
+.btn-white:hover{opacity:.85}
+
+.trust-bar{background:var(--gold-pale);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.trust-item{text-align:center;padding:1.75rem 1rem;border-right:1px solid var(--border)}
+.trust-item:last-child{border-right:none}
+.trust-icon{font-size:26px;margin-bottom:.5rem}
+.trust-label{font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+.trust-sub{font-size:11px;color:var(--muted);line-height:1.5}
+
+.lookbook-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.lk-card{position:relative;overflow:hidden;cursor:pointer}
+.lk-card:first-child{aspect-ratio:4/5}
+.lk-card:last-child{display:grid;grid-template-rows:1fr 1fr;gap:3px}
+.lk-sub{position:relative;overflow:hidden;aspect-ratio:16/9}
+.lk-card img,.lk-sub img{transition:transform .5s}
+.lk-card:hover img,.lk-sub:hover img{transform:scale(1.04)}
+.lk-caption{position:absolute;bottom:0;left:0;right:0;padding:1rem 1.25rem;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);color:var(--white)}
+.lk-caption p{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300}
+.lk-caption span{font-size:10px;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase}
+
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testi-card{border:1px solid var(--border);padding:1.75rem;background:var(--white)}
+.testi-stars{color:var(--gold);font-size:13px;letter-spacing:3px;margin-bottom:.75rem}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.75;color:var(--mid);margin-bottom:1.25rem}
+.testi-author{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.testi-city{color:var(--gold)}
+
+.newsletter{background:var(--black);color:var(--white);display:grid;grid-template-columns:1fr 1fr;min-height:360px;overflow:hidden}
+.nl-img{position:relative;overflow:hidden}
+.nl-body{padding:4rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.nl-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:1rem}
+.nl-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:300;margin-bottom:.75rem;line-height:1.1}
+.nl-sub{font-size:12px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:2rem;font-weight:300}
+.nl-row{display:flex;gap:0;max-width:400px}
+.nl-input{flex:1;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-right:none;color:var(--white);font-family:'Inter',sans-serif;font-size:12px;outline:none}
+.nl-input::placeholder{color:rgba(255,255,255,.3)}
+.nl-btn{background:var(--gold);color:var(--white);padding:12px 20px;border:none;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:background .2s}
+.nl-btn:hover{background:var(--gold-light)}
+.nl-note{font-size:10px;color:rgba(255,255,255,.25);margin-top:.75rem;letter-spacing:.3px}
+
+footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
+.footer-inner{max-width:1400px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:3rem}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:3px;color:var(--white);margin-bottom:.75rem;display:block}
+.footer-logo em{color:var(--gold);font-style:normal}
+.footer-desc{font-size:11px;line-height:1.9;color:rgba(255,255,255,.35);font-weight:300;margin-bottom:1.25rem}
+.footer-social{display:flex;gap:10px}
+.soc{width:34px;height:34px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;transition:border-color .2s;color:rgba(255,255,255,.4)}
+.soc:hover{border-color:var(--gold);color:var(--gold)}
+.footer-col h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:1.1rem;font-weight:400}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.55rem}
+.footer-col a{font-size:11px;color:rgba(255,255,255,.35);transition:color .2s;font-weight:300}
+.footer-col a:hover{color:var(--gold-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.25)}
+.pay-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pay-badge{background:rgba(255,255,255,.07);padding:3px 9px;font-size:9px;letter-spacing:1.5px;border-radius:2px;color:rgba(255,255,255,.35)}
+
+@media(max-width:1100px){
+  .products-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .cart-btn{display:none}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .cat-card.large{grid-row:auto;aspect-ratio:2/3}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .occ-grid{grid-template-columns:repeat(2,1fr)}
+  .trust-inner{grid-template-columns:repeat(2,1fr)}
+  .trust-item:nth-child(2){border-right:none}
+  .trust-item:nth-child(3){border-right:1px solid var(--border)}
+  .trust-item:last-child{border-top:1px solid var(--border)}
+  .testi-grid{grid-template-columns:1fr 1fr}
+  .testi-grid .testi-card:last-child{display:none}
+  .newsletter{grid-template-columns:1fr}
+  .nl-img{height:260px}
+  .nl-body{padding:2.5rem 2rem}
+  .sale-ribbon{padding:2rem 2rem;grid-template-columns:1fr}
+  .banner-content{padding:2rem 2rem}
+  .lookbook-grid{grid-template-columns:1fr}
+  .lk-card:last-child{grid-template-rows:auto auto}
+  .lk-sub{aspect-ratio:4/3}
+}
+@media(max-width:600px){
+  .topbar{font-size:9px;letter-spacing:1px;padding:8px .75rem}
+  .nav-inner{padding:0 1rem;height:58px}
+  .logo{font-size:20px;letter-spacing:2px}
+  .hero-content{padding:2rem 1.25rem 3rem}
+  .hero-ctas{flex-direction:column;align-items:flex-start}
+  .btn-gold,.btn-ghost{width:100%;text-align:center;padding:14px 20px}
+  .section{padding:3rem 1.25rem}
+  .cat-grid{grid-template-columns:1fr;gap:2px}
+  .cat-card{aspect-ratio:16/9}
+  .cat-card.large{aspect-ratio:16/9}
+  .products-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .prod-name{font-size:13px}
+  .occ-grid{grid-template-columns:1fr 1fr;gap:2px}
+  .trust-inner{grid-template-columns:1fr 1fr}
+  .trust-item{padding:1.25rem .75rem}
+  .trust-item:nth-child(3){border-right:none}
+  .testi-grid{grid-template-columns:1fr}
+  .testi-grid .testi-card:last-child{display:block}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .banner-full{height:55vh}
+  .banner-content{padding:1.5rem 1.25rem}
+  .newsletter{grid-template-columns:1fr}
+  .nl-row{flex-direction:column}
+  .nl-input{border-right:1px solid rgba(255,255,255,.15);border-bottom:none}
+  .nl-btn{padding:12px 20px}
+  .sale-ribbon{padding:2rem 1.25rem;gap:1.25rem}
+  .lookbook-grid{grid-template-columns:1fr}
+  .lk-card:first-child{aspect-ratio:4/3}
+  .occ-card{aspect-ratio:1/1}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  RAMADAN SALE &nbsp;<span>UP TO 40% OFF</span>&nbsp; · &nbsp;FREE DELIVERY OVER RS. 5,000 &nbsp;·&nbsp; COD AVAILABLE
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">MAZHAR <em>JEWELLERS</em></a>
+    <ul class="nav-links">
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="necklaces.html">NECKLACES</a></li>
+      <li><a href="earrings.html">EARRINGS</a></li>
+      <li><a href="rings.html">RINGS</a></li>
+      <li><a href="bracelets.html">BRACELETS</a></li>
+      <li><a href="gemstones.html">GEMSTONES</a></li>
+    </ul>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" aria-label="Search">🔍</button>
+      <button class="nav-icon-btn" aria-label="Wishlist">♡</button>
+      <button class="nav-icon-btn" aria-label="Account">👤</button>
+      <button class="nav-icon-btn cart-btn">🛍 CART</button>
+      <button class="hamburger" aria-label="Menu" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="home.html">Home</a>
+  <a href="necklaces.html">Necklaces</a>
+  <a href="earrings.html">Earrings</a>
+  <a href="rings.html">Rings</a>
+  <a href="bracelets.html">Bracelets</a>
+  <a href="gemstones.html">Gemstones</a>
+</div>
+
+<div class="hero">
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600&q=80" alt="Hero Crystal Jewellery">
+  </div>
+  <div class="hero-overlay"></div>
+  <div style="width:100%">
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ &nbsp; New Collection 2025 &nbsp; ✦</p>
+      <h1 class="hero-title">Sparkle <em>&amp;</em><br>Beauty</h1>
+      <p class="hero-sub">Premium quality jewellery with exquisite craftsmanship and beautiful design.</p>
+      <div class="hero-ctas">
+        <button class="btn-gold">SHOP NOW</button>
+        <button class="btn-ghost">VIEW COLLECTIONS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>FREE DELIVERY ACROSS PAKISTAN</span><span class="dot">✦</span>
+    <span>EASY INSTALLMENTS ON HBL &amp; MEEZAN</span><span class="dot">✦</span>
+    <span>COD AVAILABLE</span><span class="dot">✦</span>
+    <span>30-DAY RETURN POLICY</span><span class="dot">✦</span>
+    <span>AUTHENTICITY GUARANTEE</span><span class="dot">✦</span>
+    <span>LAHORE · KARACHI · ISLAMABAD · PESHAWAR</span><span class="dot">✦</span>
+    <span>FREE DELIVERY ACROSS PAKISTAN</span><span class="dot">✦</span>
+    <span>EASY INSTALLMENTS ON HBL &amp; MEEZAN</span><span class="dot">✦</span>
+    <span>COD AVAILABLE</span><span class="dot">✦</span>
+    <span>30-DAY RETURN POLICY</span><span class="dot">✦</span>
+    <span>AUTHENTICITY GUARANTEE</span><span class="dot">✦</span>
+    <span>LAHORE · KARACHI · ISLAMABAD · PESHAWAR</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<style>
+.cat-grid2{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.cat-card2{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:1/1;cursor:pointer;display:block}
+.cat-card2 img{transition:transform .5s}
+.cat-card2:hover img{transform:scale(1.07)}
+.cat-card2 .cat-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%)}
+.cat-card2 .cat-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;text-align:center}
+.cat-card2 .cat-count{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--white);font-size:8px;letter-spacing:1px;padding:3px 7px;border-radius:3px;font-weight:500}
+@media(max-width:900px){.cat-grid2{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.cat-grid2{grid-template-columns:repeat(2,1fr);gap:8px}}
+</style>
+
+<div class="section" style="padding-bottom:1rem">
+  <div class="section-hd" style="margin-bottom:2rem">
+    <p class="eyebrow">✦ Shop by Category</p>
+    <h2 class="sec-title">Our Collections</h2>
+    <p class="sec-sub">For every occasion, for every style</p>
+  </div>
+  <div class="cat-grid2">
+    <a href="necklaces.html" class="cat-card2">
+      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=80" alt="Necklaces">
+      <div class="cat-grad"></div>
+      <span class="cat-label">Necklaces</span>
+      <span class="cat-count">142+</span>
+    </a>
+    <a href="earrings.html" class="cat-card2">
+      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=80" alt="Earrings">
+      <div class="cat-grad"></div>
+      <span class="cat-label">Earrings</span>
+      <span class="cat-count">98+</span>
+    </a>
+    <a href="rings.html" class="cat-card2">
+      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&q=80" alt="Rings">
+      <div class="cat-grad"></div>
+      <span class="cat-label">Rings</span>
+      <span class="cat-count">76+</span>
+    </a>
+    <a href="bracelets.html" class="cat-card2">
+      <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80" alt="Bracelets">
+      <div class="cat-grad"></div>
+      <span class="cat-label">Bracelets</span>
+      <span class="cat-count">65+</span>
+    </a>
+    <a href="gemstones.html" class="cat-card2">
+      <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=500&q=80" alt="GemStones">
+      <div class="cat-grad"></div>
+      <span class="cat-label">GemStones</span>
+      <span class="cat-count">50+</span>
+    </a>
+  </div>
+</div>
+
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Necklaces &amp; Pendants</p>
+      <h2 class="sec-title">Necklaces Collection</h2>
+      <p class="sec-sub">142+ designs — something special for every occasion</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Swan Necklace">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Idyllia Collection</p>
+        <p class="prod-name">Swan Pendant Necklace, Rhodium Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 12,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=600&q=80" alt="Star Choker">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Constella Collection</p>
+        <p class="prod-name">Star Choker Necklace, Rhodium Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 15,200</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Pearl Necklace">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Pearl Essence Collection</p>
+        <p class="prod-name">Crystal Pearl Necklace, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 16,800</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 20%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80" alt="Bib Necklace">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Regalia Collection</p>
+        <p class="prod-name">Crystal Bib Necklace, Gold Plated</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 28,500</span>
+          <span class="p-old">PKR 35,600</span>
+          <span class="p-off">20% OFF</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="necklaces.html" class="btn-gold" style="background:var(--black)">VIEW ALL NECKLACES</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--gold-pale)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Earrings</p>
+      <h2 class="sec-title">Earrings Collection</h2>
+      <p class="sec-sub">98+ designs — the perfect pair for every style</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Drop Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Gema Collection</p>
+        <p class="prod-name">Oval Crystal Drop Earrings, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 8,900</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&q=80" alt="Heart Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Amour Collection</p>
+        <p class="prod-name">Heart Crystal Drop Earrings, Rose Gold</p>
+        <div class="prod-price"><span class="p-now">PKR 9,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 15%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=600&q=80" alt="Garnet Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Garnet Collection</p>
+        <p class="prod-name">Deep Garnet Drop Earrings, Silver Tone</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 10,500</span>
+          <span class="p-old">PKR 12,350</span>
+          <span class="p-off">15% OFF</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Pearl Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Pearl Essence Collection</p>
+        <p class="prod-name">Crystal Pearl Drop Earrings, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 11,200</span></div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="earrings.html" class="btn-gold" style="background:var(--black)">VIEW ALL EARRINGS</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Rings</p>
+      <h2 class="sec-title">Rings Collection</h2>
+      <p class="sec-sub">76+ designs — a star for every finger</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Solitaire Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Millenia Collection</p>
+        <p class="prod-name">Solitaire Ring, Octagon Cut Crystal</p>
+        <div class="prod-price"><span class="p-now">PKR 14,700</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=600&q=80" alt="Amethyst Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Amethyst Collection</p>
+        <p class="prod-name">Amethyst Gemstone Ring, Silver Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 11,900</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Ruby Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Ruby Collection</p>
+        <p class="prod-name">Ruby Crystal Ring, Rose Gold Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 18,900</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 10%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&q=80" alt="Emerald Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Emerald Collection</p>
+        <p class="prod-name">Emerald Crystal Ring, Gold Tone</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 21,500</span>
+          <span class="p-old">PKR 23,900</span>
+          <span class="p-off">10% OFF</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="rings.html" class="btn-gold" style="background:var(--black)">VIEW ALL RINGS</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--gold-pale)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Bracelets</p>
+      <h2 class="sec-title">Bracelets Collection</h2>
+      <p class="sec-sub">65+ designs — sparkle on your wrist, joy in your heart</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Tennis Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Matrix Collection</p>
+        <p class="prod-name">Crystal Tennis Bracelet, Rose Gold Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 18,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Pearl Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Pearl Essence Collection</p>
+        <p class="prod-name">Crystal Pearl Bracelet, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 13,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=600&q=80" alt="Charm Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Constella Collection</p>
+        <p class="prod-name">Star Charm Bracelet, Rhodium Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 14,200</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 20%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=600&q=80" alt="Crystal Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Lumina Collection</p>
+        <p class="prod-name">Crystal Link Bracelet, Silver Tone</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 16,800</span>
+          <span class="p-old">PKR 21,000</span>
+          <span class="p-off">20% OFF</span>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="bracelets.html" class="btn-gold" style="background:var(--black)">VIEW ALL BRACELETS</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--gold-pale)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ GemStones</p>
+      <h2 class="sec-title">Premium GemStone Collection</h2>
+      <p class="sec-sub">Authentic gemstones — every piece radiates value and brilliance</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=600&q=80" alt="Amethyst Gemstone">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Amethyst Collection</p>
+        <p class="prod-name">Natural Amethyst Pendant, Silver Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 14,900</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&q=80" alt="Emerald Gemstone">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Emerald Collection</p>
+        <p class="prod-name">Green Emerald Stud Earrings, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 18,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 25%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Ruby Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Ruby Collection</p>
+        <p class="prod-name">Natural Ruby Gemstone Ring, Rose Gold</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 22,400</span>
+          <span class="p-old">PKR 29,900</span>
+          <span class="p-off">25% OFF</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Sapphire Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Sapphire Collection</p>
+        <p class="prod-name">Blue Sapphire Crystal Bracelet, Silver Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 16,700</span></div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <a href="gemstones.html" class="btn-gold" style="background:var(--black)">VIEW ALL GEMSTONES</a>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--white)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Best Sellers</p>
+      <h2 class="sec-title">Most Loved Jewellery</h2>
+      <p class="sec-sub">The most loved pieces across Pakistan</p>
+    </div>
+    <div class="products-grid">
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">BEST SELLER</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Swan Necklace">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Idyllia Collection</p>
+        <p class="prod-name">Swan Pendant Necklace, Rhodium Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 12,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Drop Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Gema Collection</p>
+        <p class="prod-name">Oval Crystal Drop Earrings, Gold Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 8,900</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-sale">SALE 30%</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Solitaire Ring">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Millenia Collection</p>
+        <p class="prod-name">Solitaire Ring, Octagon Cut Crystal</p>
+        <div class="prod-price">
+          <span class="p-now">PKR 14,700</span>
+          <span class="p-old">PKR 21,000</span>
+          <span class="p-off">30% OFF</span>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Tennis Bracelet">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Matrix Collection</p>
+        <p class="prod-name">Crystal Tennis Bracelet, Rose Gold Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 18,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-new">NEW IN</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Stud Earrings">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Florere Collection</p>
+        <p class="prod-name">Flower Crystal Stud Earrings, Silver Tone</p>
+        <div class="prod-price"><span class="p-now">PKR 6,500</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=600&q=80" alt="Star Choker">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Constella Collection</p>
+        <p class="prod-name">Star Choker Necklace, Rhodium Plated</p>
+        <div class="prod-price"><span class="p-now">PKR 15,200</span></div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img">
+          <span class="prod-badge b-best">GIFT PICK</span>
+          <button class="prod-wish">♡</button>
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Gift Set">
+          <button class="prod-add">ADD TO CART</button>
+        </div>
+        <p class="prod-coll">Gift Set</p>
+        <p class="prod-name">Crystal Jewellery Gift Set, 3 Piece</p>
+        <div class="prod-price"><span class="p-now">PKR 24,900</span></div>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:2.5rem">
+      <button class="btn-gold" style="background:var(--black)">VIEW ALL PRODUCTS</button>
+    </div>
+  </div>
+</div>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <div class="trust-icon">🚚</div>
+      <p class="trust-label">Free Delivery</p>
+      <p class="trust-sub">Free on orders PKR 5,000+<br>across Pakistan</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💳</div>
+      <p class="trust-label">Easy Installments</p>
+      <p class="trust-sub">HBL, Meezan, JazzCash<br>3–12 months</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔄</div>
+      <p class="trust-label">30-Din Return</p>
+      <p class="trust-sub">No questions asked<br>30 days return</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🛡️</div>
+      <p class="trust-label">100% Authentic</p>
+      <p class="trust-sub">Austrian crystals<br>with certificate</p>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--gold-pale)">
+  <div class="section">
+    <div class="section-hd">
+      <p class="eyebrow">✦ Customer Reviews</p>
+      <h2 class="sec-title">Hamare Khush Customers</h2>
+      <p class="sec-sub">50,000+ happy customers across Pakistan</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Bought a necklace set for my wedding — it looked exactly like the photo. Quality and packaging were outstanding. Thank you Mazhar Jewellers!"</p>
+        <p class="testi-author">— SANA M. <span class="testi-city">LAHORE</span></p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">" gifted earrings to my sister for Eid — she loved them! The packaging was so beautiful we didn't even need gift wrap!"</p>
+        <p class="testi-author">— AYESHA K. <span class="testi-city">KARACHI</span></p>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Got a crystal set — feels no different from imported brands. Great price and excellent quality. Next day delivery in Islamabad!"</p>
+        <p class="testi-author">— HASSAN R. <span class="testi-city">ISLAMABAD</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="newsletter">
+  <div class="nl-img">
+    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=900&q=80" alt="Newsletter">
+  </div>
+  <div class="nl-body">
+    <p class="nl-eyebrow">✦ Exclusive Updates</p>
+    <h2 class="nl-title">Naye Designs<br>Pehle Paayein</h2>
+    <p class="nl-sub">Subscribe and get 10% off your first order. Early access for exclusive members only.</p>
+    <div class="nl-row">
+      <input class="nl-input" type="email" placeholder="Enter your email...">
+      <button class="nl-btn">SUBSCRIBE</button>
+    </div>
+    <p class="nl-note">We never spam. You can unsubscribe anytime.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">MAZHAR <em>JEWELLERS</em></span>
+        <p class="footer-desc">Premium quality jewellery with exquisite craftsmanship. Quality and trust — Mazhar Jewellers.</p>
+        <div class="footer-social">
+          <div class="soc">f</div>
+          <div class="soc">in</div>
+          <div class="soc">▶</div>
+          <div class="soc">◉</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Track Your Order</a></li>
+          <li><a href="#">Returns &amp; Exchange</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Product Care</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press &amp; Media</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#">Store Finder</a></li>
+          <li><a href="#">Corporate Gifts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stores</h4>
+        <ul>
+          <li><a href="#">Lahore — DHA, MM Alam</a></li>
+          <li><a href="#">Karachi — Dolmen Mall</a></li>
+          <li><a href="#">Islamabad — Centaurus</a></li>
+          <li><a href="#">Peshawar — Hayatabad</a></li>
+          <li><a href="#">Faisalabad — D Ground</a></li>
+          <li><a href="#">Multan — Hussain Agahi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Mazhar Jewellers. All rights reserved.</p>
+      <div class="pay-row">
+        <span class="pay-badge">VISA</span>
+        <span class="pay-badge">MC</span>
+        <span class="pay-badge">JazzCash</span>
+        <span class="pay-badge">EasyPaisa</span>
+        <span class="pay-badge">COD</span>
+        <span class="pay-badge">HBL</span>
+        <span class="pay-badge">Meezan</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){var p=window.location.pathname.split('/').pop()||'index.html';if(p==='index.html')p='home.html';document.querySelectorAll('.nav-links a').forEach(function(a){if(a.getAttribute('href')===p)a.classList.add('active')})})();
+</script>
+</body>
+</html>
