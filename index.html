@@ -228,14 +228,14 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
   .cat-grid{grid-template-columns:1fr;gap:2px}
   .cat-card{aspect-ratio:16/9}
   .cat-card.large{aspect-ratio:16/9}
-  .products-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .products-grid{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:4px;flex-wrap:nowrap}
+  .products-grid::-webkit-scrollbar{display:none}
+  .products-grid .prod-card{min-width:62vw;scroll-snap-align:start;flex-shrink:0}
   .prod-name{font-size:13px}
   .occ-grid{grid-template-columns:1fr 1fr;gap:2px}
   .trust-inner{grid-template-columns:1fr 1fr}
   .trust-item{padding:1.25rem .75rem}
   .trust-item:nth-child(3){border-right:none}
-  .testi-grid{grid-template-columns:1fr}
-  .testi-grid .testi-card:last-child{display:block}
   .footer-grid{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;align-items:flex-start}
   .banner-full{height:55vh}
@@ -249,6 +249,35 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
   .lk-card:first-child{aspect-ratio:4/3}
   .occ-card{aspect-ratio:1/1}
 }
+</style>
+
+<style>
+.h-scroll-wrap{position:relative}
+.h-scroll{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding:.25rem .25rem .5rem;cursor:grab;scroll-behavior:smooth}
+.h-scroll::-webkit-scrollbar{display:none}
+.h-scroll.dragging{cursor:grabbing;scroll-snap-type:none;scroll-behavior:auto;user-select:none}
+.h-scroll-item{flex-shrink:0;scroll-snap-align:start;transition:transform .4s ease,box-shadow .4s ease}
+.h-scroll-item:hover{transform:translateY(-4px)}
+@media(min-width:1100px){.h-scroll-item{width:calc((100% - 4.5rem)/4)}}
+@media(min-width:768px)and (max-width:1099px){.h-scroll-item{width:calc((100% - 1.5rem)/2)}}
+@media(max-width:767px){.h-scroll{gap:1rem}.h-scroll-item{width:calc(83.333% - .5rem)}}
+.h-scroll-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:var(--white);border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.1);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--black);transition:all .3s ease;z-index:10;opacity:0;pointer-events:none;font-family:serif;line-height:1}
+.h-scroll-wrap:hover .h-scroll-btn,.h-scroll-wrap.focused .h-scroll-btn{opacity:1;pointer-events:auto}
+.h-scroll-btn:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+.h-scroll-btn.prev{left:-8px}
+.h-scroll-btn.next{right:-8px}
+.h-scroll-btn.disabled{opacity:.25!important;pointer-events:none!important}
+@media(max-width:767px){.h-scroll-btn{display:none}}
+.h-scroll-item .prod-img{border-radius:10px;overflow:hidden}
+.h-scroll-item.testi-card{border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.06);border:1px solid var(--border);transition:transform .4s ease,box-shadow .4s ease}
+.h-scroll-item.testi-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.1)}
+.cat-card2{position:relative;overflow:hidden;aspect-ratio:1/1;cursor:pointer;display:block}
+.cat-card2 img{transition:transform .5s;width:100%;height:100%;object-fit:cover}
+.cat-card2:hover img{transform:scale(1.08)}
+.cat-card2 .cat-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%)}
+.cat-card2 .cat-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;text-align:center}
+.cat-card2 .cat-count{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--white);font-size:8px;letter-spacing:1px;padding:3px 7px;border-radius:3px;font-weight:500}
+.h-scroll-item.cat-card2{border-radius:14px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -325,55 +354,47 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
   </div>
 </div>
 
-<style>
-.cat-grid2{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.cat-card2{position:relative;overflow:hidden;border-radius:6px;aspect-ratio:1/1;cursor:pointer;display:block}
-.cat-card2 img{transition:transform .5s}
-.cat-card2:hover img{transform:scale(1.07)}
-.cat-card2 .cat-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 60%)}
-.cat-card2 .cat-label{position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem;color:var(--white);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:400;text-align:center}
-.cat-card2 .cat-count{position:absolute;top:8px;right:8px;background:var(--gold);color:var(--white);font-size:8px;letter-spacing:1px;padding:3px 7px;border-radius:3px;font-weight:500}
-@media(max-width:900px){.cat-grid2{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:600px){.cat-grid2{grid-template-columns:repeat(2,1fr);gap:8px}}
-</style>
-
 <div class="section" style="padding-bottom:1rem">
   <div class="section-hd" style="margin-bottom:2rem">
     <p class="eyebrow">✦ Shop by Category</p>
     <h2 class="sec-title">Our Collections</h2>
     <p class="sec-sub">For every occasion, for every style</p>
   </div>
-  <div class="cat-grid2">
-    <a href="necklaces.html" class="cat-card2">
-      <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=80" alt="Necklaces">
-      <div class="cat-grad"></div>
-      <span class="cat-label">Necklaces</span>
-      <span class="cat-count">142+</span>
-    </a>
-    <a href="earrings.html" class="cat-card2">
-      <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=80" alt="Earrings">
-      <div class="cat-grad"></div>
-      <span class="cat-label">Earrings</span>
-      <span class="cat-count">98+</span>
-    </a>
-    <a href="rings.html" class="cat-card2">
-      <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&q=80" alt="Rings">
-      <div class="cat-grad"></div>
-      <span class="cat-label">Rings</span>
-      <span class="cat-count">76+</span>
-    </a>
-    <a href="bracelets.html" class="cat-card2">
-      <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80" alt="Bracelets">
-      <div class="cat-grad"></div>
-      <span class="cat-label">Bracelets</span>
-      <span class="cat-count">65+</span>
-    </a>
-    <a href="gemstones.html" class="cat-card2">
-      <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=500&q=80" alt="GemStones">
-      <div class="cat-grad"></div>
-      <span class="cat-label">GemStones</span>
-      <span class="cat-count">50+</span>
-    </a>
+  <div class="h-scroll-wrap">
+    <div class="h-scroll">
+      <a href="necklaces.html" class="cat-card2 h-scroll-item">
+        <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&q=80" alt="Necklaces">
+        <div class="cat-grad"></div>
+        <span class="cat-label">Necklaces</span>
+        <span class="cat-count">142+</span>
+      </a>
+      <a href="earrings.html" class="cat-card2 h-scroll-item">
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&q=80" alt="Earrings">
+        <div class="cat-grad"></div>
+        <span class="cat-label">Earrings</span>
+        <span class="cat-count">98+</span>
+      </a>
+      <a href="rings.html" class="cat-card2 h-scroll-item">
+        <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&q=80" alt="Rings">
+        <div class="cat-grad"></div>
+        <span class="cat-label">Rings</span>
+        <span class="cat-count">76+</span>
+      </a>
+      <a href="bracelets.html" class="cat-card2 h-scroll-item">
+        <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80" alt="Bracelets">
+        <div class="cat-grad"></div>
+        <span class="cat-label">Bracelets</span>
+        <span class="cat-count">65+</span>
+      </a>
+      <a href="gemstones.html" class="cat-card2 h-scroll-item">
+        <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?w=500&q=80" alt="GemStones">
+        <div class="cat-grad"></div>
+        <span class="cat-label">GemStones</span>
+        <span class="cat-count">50+</span>
+      </a>
+    </div>
+    <button class="h-scroll-btn prev" aria-label="Previous">‹</button>
+    <button class="h-scroll-btn next" aria-label="Next">›</button>
   </div>
 </div>
 
@@ -719,94 +740,96 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
       <h2 class="sec-title">Most Loved Jewellery</h2>
       <p class="sec-sub">The most loved pieces across Pakistan</p>
     </div>
-    <div class="products-grid">
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <span class="prod-badge b-best">BEST SELLER</span>
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Swan Necklace">
-          <button class="prod-add">ADD TO CART</button>
+    <div class="h-scroll-wrap">
+      <div class="h-scroll">
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <span class="prod-badge b-best">BEST SELLER</span>
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80" alt="Swan Necklace">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Idyllia Collection</p>
+          <p class="prod-name">Swan Pendant Necklace, Rhodium Plated</p>
+          <div class="prod-price"><span class="p-now">PKR 12,500</span></div>
         </div>
-        <p class="prod-coll">Idyllia Collection</p>
-        <p class="prod-name">Swan Pendant Necklace, Rhodium Plated</p>
-        <div class="prod-price"><span class="p-now">PKR 12,500</span></div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <span class="prod-badge b-new">NEW IN</span>
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Drop Earrings">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Gema Collection</p>
+          <p class="prod-name">Oval Crystal Drop Earrings, Gold Tone</p>
+          <div class="prod-price"><span class="p-now">PKR 8,900</span></div>
+        </div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <span class="prod-badge b-sale">SALE 30%</span>
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Solitaire Ring">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Millenia Collection</p>
+          <p class="prod-name">Solitaire Ring, Octagon Cut Crystal</p>
+          <div class="prod-price">
+            <span class="p-now">PKR 14,700</span>
+            <span class="p-old">PKR 21,000</span>
+            <span class="p-off">30% OFF</span>
+          </div>
+        </div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Tennis Bracelet">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Matrix Collection</p>
+          <p class="prod-name">Crystal Tennis Bracelet, Rose Gold Plated</p>
+          <div class="prod-price"><span class="p-now">PKR 18,500</span></div>
+        </div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <span class="prod-badge b-new">NEW IN</span>
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Stud Earrings">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Florere Collection</p>
+          <p class="prod-name">Flower Crystal Stud Earrings, Silver Tone</p>
+          <div class="prod-price"><span class="p-now">PKR 6,500</span></div>
+        </div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=600&q=80" alt="Star Choker">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Constella Collection</p>
+          <p class="prod-name">Star Choker Necklace, Rhodium Plated</p>
+          <div class="prod-price"><span class="p-now">PKR 15,200</span></div>
+        </div>
+
+        <div class="prod-card h-scroll-item">
+          <div class="prod-img">
+            <span class="prod-badge b-best">GIFT PICK</span>
+            <button class="prod-wish">♡</button>
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Gift Set">
+            <button class="prod-add">ADD TO CART</button>
+          </div>
+          <p class="prod-coll">Gift Set</p>
+          <p class="prod-name">Crystal Jewellery Gift Set, 3 Piece</p>
+          <div class="prod-price"><span class="p-now">PKR 24,900</span></div>
+        </div>
       </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <span class="prod-badge b-new">NEW IN</span>
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&q=80" alt="Drop Earrings">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Gema Collection</p>
-        <p class="prod-name">Oval Crystal Drop Earrings, Gold Tone</p>
-        <div class="prod-price"><span class="p-now">PKR 8,900</span></div>
-      </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <span class="prod-badge b-sale">SALE 30%</span>
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&q=80" alt="Solitaire Ring">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Millenia Collection</p>
-        <p class="prod-name">Solitaire Ring, Octagon Cut Crystal</p>
-        <div class="prod-price">
-          <span class="p-now">PKR 14,700</span>
-          <span class="p-old">PKR 21,000</span>
-          <span class="p-off">30% OFF</span>
-        </div>
-      </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&q=80" alt="Tennis Bracelet">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Matrix Collection</p>
-        <p class="prod-name">Crystal Tennis Bracelet, Rose Gold Plated</p>
-        <div class="prod-price"><span class="p-now">PKR 18,500</span></div>
-      </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <span class="prod-badge b-new">NEW IN</span>
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?w=600&q=80" alt="Stud Earrings">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Florere Collection</p>
-        <p class="prod-name">Flower Crystal Stud Earrings, Silver Tone</p>
-        <div class="prod-price"><span class="p-now">PKR 6,500</span></div>
-      </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=600&q=80" alt="Star Choker">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Constella Collection</p>
-        <p class="prod-name">Star Choker Necklace, Rhodium Plated</p>
-        <div class="prod-price"><span class="p-now">PKR 15,200</span></div>
-      </div>
-
-      <div class="prod-card">
-        <div class="prod-img">
-          <span class="prod-badge b-best">GIFT PICK</span>
-          <button class="prod-wish">♡</button>
-          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Gift Set">
-          <button class="prod-add">ADD TO CART</button>
-        </div>
-        <p class="prod-coll">Gift Set</p>
-        <p class="prod-name">Crystal Jewellery Gift Set, 3 Piece</p>
-        <div class="prod-price"><span class="p-now">PKR 24,900</span></div>
-      </div>
-
+      <button class="h-scroll-btn prev" aria-label="Previous">‹</button>
+      <button class="h-scroll-btn next" aria-label="Next">›</button>
     </div>
     <div style="text-align:center;margin-top:2.5rem">
       <button class="btn-gold" style="background:var(--black)">VIEW ALL PRODUCTS</button>
@@ -846,22 +869,26 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
       <h2 class="sec-title">Hamare Khush Customers</h2>
       <p class="sec-sub">50,000+ happy customers across Pakistan</p>
     </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Bought a necklace set for my wedding — it looked exactly like the photo. Quality and packaging were outstanding. Thank you Mazhar Jewellers!"</p>
-        <p class="testi-author">— SANA M. <span class="testi-city">LAHORE</span></p>
+    <div class="h-scroll-wrap">
+      <div class="h-scroll">
+        <div class="testi-card h-scroll-item">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Bought a necklace set for my wedding — it looked exactly like the photo. Quality and packaging were outstanding. Thank you Mazhar Jewellers!"</p>
+          <p class="testi-author">— SANA M. <span class="testi-city">LAHORE</span></p>
+        </div>
+        <div class="testi-card h-scroll-item">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">" gifted earrings to my sister for Eid — she loved them! The packaging was so beautiful we didn't even need gift wrap!"</p>
+          <p class="testi-author">— AYESHA K. <span class="testi-city">KARACHI</span></p>
+        </div>
+        <div class="testi-card h-scroll-item">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Got a crystal set — feels no different from imported brands. Great price and excellent quality. Next day delivery in Islamabad!"</p>
+          <p class="testi-author">— HASSAN R. <span class="testi-city">ISLAMABAD</span></p>
+        </div>
       </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">" gifted earrings to my sister for Eid — she loved them! The packaging was so beautiful we didn't even need gift wrap!"</p>
-        <p class="testi-author">— AYESHA K. <span class="testi-city">KARACHI</span></p>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Got a crystal set — feels no different from imported brands. Great price and excellent quality. Next day delivery in Islamabad!"</p>
-        <p class="testi-author">— HASSAN R. <span class="testi-city">ISLAMABAD</span></p>
-      </div>
+      <button class="h-scroll-btn prev" aria-label="Previous">‹</button>
+      <button class="h-scroll-btn next" aria-label="Next">›</button>
     </div>
   </div>
 </div>
@@ -946,6 +973,67 @@ footer{background:#080808;color:rgba(255,255,255,.45);padding:4rem 1.5rem 2rem}
 
 <script>
 (function(){var p=window.location.pathname.split('/').pop()||'index.html';if(p==='index.html')p='home.html';document.querySelectorAll('.nav-links a').forEach(function(a){if(a.getAttribute('href')===p)a.classList.add('active')})})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.h-scroll-wrap').forEach(function(wrap){
+    var track=wrap.querySelector('.h-scroll');
+    var prev=wrap.querySelector('.h-scroll-btn.prev');
+    var next=wrap.querySelector('.h-scroll-btn.next');
+    var isDragging=false,startX=0,scrollLeft=0;
+
+    function getGap(){
+      var s=getComputedStyle(track).gap;
+      return s.includes('rem')?parseFloat(s)*16:s.includes('px')?parseFloat(s):24;
+    }
+
+    function scrollBy(dir){
+      var item=track.querySelector('.h-scroll-item');
+      if(!item)return;
+      var amt=item.offsetWidth+getGap();
+      track.scrollBy({left:dir*amt,behavior:'smooth'});
+    }
+
+    function updateBtns(){
+      if(!prev||!next)return;
+      var ms=track.scrollWidth-track.clientWidth;
+      prev.classList.toggle('disabled',track.scrollLeft<=5);
+      next.classList.toggle('disabled',track.scrollLeft>=ms-5);
+    }
+
+    track.addEventListener('scroll',updateBtns);
+    updateBtns();
+
+    if(prev)prev.addEventListener('click',function(){scrollBy(-1)});
+    if(next)next.addEventListener('click',function(){scrollBy(1)});
+
+    track.addEventListener('mousedown',function(e){
+      isDragging=true;track.classList.add('dragging');
+      startX=e.pageX-track.offsetLeft;
+      scrollLeft=track.scrollLeft;
+    });
+    document.addEventListener('mousemove',function(e){
+      if(!isDragging)return;e.preventDefault();
+      var x=e.pageX-track.offsetLeft;
+      track.scrollLeft=scrollLeft-(x-startX)*1.2;
+    });
+    document.addEventListener('mouseup',function(){isDragging=false;track.classList.remove('dragging')});
+
+    track.addEventListener('touchstart',function(e){isDragging=true;startX=e.touches[0].pageX-track.offsetLeft;scrollLeft=track.scrollLeft},{passive:true});
+    track.addEventListener('touchmove',function(e){if(!isDragging)return;var x=e.touches[0].pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.2},{passive:true});
+    track.addEventListener('touchend',function(){isDragging=false});
+
+    track.setAttribute('tabindex','0');
+    track.addEventListener('keydown',function(e){
+      if(e.key==='ArrowLeft'){scrollBy(-1);e.preventDefault()}
+      if(e.key==='ArrowRight'){scrollBy(1);e.preventDefault()}
+    });
+
+    track.addEventListener('wheel',function(e){
+      if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.preventDefault();track.scrollLeft+=e.deltaX}
+    },{passive:false});
+  });
+});
 </script>
 </body>
 </html>
