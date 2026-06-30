@@ -1,0 +1,32 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'm.abbas.askri@gmail.com';
+    }
+
+    // Public read access to all files
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+
+    // Admin-only write/delete
+    match /products/{fileName} {
+      allow write, delete: if isAdmin();
+    }
+
+    match /collections/{fileName} {
+      allow write, delete: if isAdmin();
+    }
+
+    match /banners/{fileName} {
+      allow write, delete: if isAdmin();
+    }
+
+    // Deny all other writes
+    match /{allPaths=**} {
+      allow write, delete: if false;
+    }
+  }
+}
