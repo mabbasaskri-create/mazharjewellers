@@ -20,10 +20,14 @@ export default function AdminLayout({
 
   useEffect(() => {
     if (isLoginPage) return;
-    if (!loading && !user) {
-      router.push("/admin/login");
+    if (!loading) {
+      if (!user) {
+        router.push("/admin/login");
+      } else if (!isAdmin) {
+        router.push("/my-account");
+      }
     }
-  }, [user, loading, router, isLoginPage]);
+  }, [user, loading, isAdmin, router, isLoginPage]);
 
   if (isLoginPage) {
     return <>{children}</>;

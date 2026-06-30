@@ -15,7 +15,7 @@ export default function AdminLoginPage() {
       if (isAdmin) {
         router.push("/admin/dashboard");
       } else {
-        router.push("/orders");
+        router.push("/my-account");
       }
     }
   }, [user, loading, isAdmin, router]);
@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
       if (res.email === ADMIN_EMAIL) {
         router.push("/admin/dashboard");
       } else {
-        router.push("/orders");
+        router.push("/my-account");
       }
     } else if (res.error) {
       alert(res.error);

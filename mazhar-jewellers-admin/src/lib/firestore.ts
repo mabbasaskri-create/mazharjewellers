@@ -281,14 +281,43 @@ export async function getOrders(): Promise<Order[]> {
   return snap.docs.map((d) => toDoc<Order>(d.id, d.data()));
 }
 
-export async function getOrdersByEmail(email: string): Promise<Order[]> {
+export async function getOrdersByUserId(uid: string): Promise<Order[]> {
   const q = query(
     collection(db, "orders"),
-    where("customer.email", "==", email),
+    where("userId", "==", uid),
     orderBy("createdAt", "desc")
   );
   const snap = await getDocs(q);
   return snap.docs.map((d) => toDoc<Order>(d.id, d.data()));
+}
+
+export async function updateOrderStatus(orderId: string, status: Order["status"]) {
+  await updateDocument("orders", orderId, { status });
+}
+
+export async function searchOrders(params: {
+  search?: string;
+  statusFilter?: string;
+}): Promise<Order[]> {
+  let constraints: QueryConstraint[] = [orderBy("createdAt", "desc")];
+  if (params.statusFilter && params.statusFilter !== "all") {
+    constraints.push(where("status", "==", params.statusFilter));
+  }
+  constraints.push(limit(100));
+  const q = query(collection(db, "orders"), ...constraints);
+  const snap = await getDocs(q);
+  let orders = snap.docs.map((d) => toDoc<Order>(d.id, d.data()));
+  if (params.search) {
+    const term = params.search.toLowerCase();
+    orders = orders.filter(
+      (o) =>
+        o.id.toLowerCase().includes(term) ||
+        o.customer?.name?.toLowerCase().includes(term) ||
+        o.customer?.email?.toLowerCase().includes(term) ||
+        o.customer?.phone?.toLowerCase().includes(term)
+    );
+  }
+  return orders;
 }
 
 export async function searchProducts(searchTerm: string): Promise<ProductWithNames[]> {

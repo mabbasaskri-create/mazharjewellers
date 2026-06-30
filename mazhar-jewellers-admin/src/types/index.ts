@@ -99,6 +99,7 @@ export interface SocialLink {
 }
 
 export interface Order extends BaseDocument {
+  userId: string;
   items: OrderItem[];
   customer: CustomerInfo;
   total: number;

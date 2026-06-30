@@ -32,7 +32,7 @@ export default function Navbar() {
         if (res.email === ADMIN_EMAIL) {
           window.location.href = "/admin/dashboard";
         } else {
-          window.location.href = "/orders";
+          window.location.href = "/my-account";
         }
       }
     }
@@ -79,11 +79,11 @@ export default function Navbar() {
                   <p className="text-xs text-gray-400 truncate">{user.email}</p>
                 </div>
                 <Link
-                  href="/orders"
+                  href="/my-account"
                   onClick={() => setUserMenuOpen(false)}
                   className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                 >
-                  📦 My Orders
+                  👤 My Account
                 </Link>
                 <button
                   onClick={handleLogout}
@@ -128,11 +128,11 @@ export default function Navbar() {
           {user && !isAdmin && (
             <>
               <Link
-                href="/orders"
+                href="/my-account"
                 onClick={() => setMenuOpen(false)}
                 className="text-xl font-serif text-black py-4 border-b border-border block"
               >
-                📦 My Orders
+                👤 My Account
               </Link>
               <button
                 onClick={() => { setMenuOpen(false); logout(); }}
@@ -148,7 +148,7 @@ export default function Navbar() {
                 setMenuOpen(false);
                 const res = await signInWithGoogle();
                 if (res.success && res.email) {
-                  window.location.href = res.email === ADMIN_EMAIL ? "/admin/dashboard" : "/orders";
+                  window.location.href = res.email === ADMIN_EMAIL ? "/admin/dashboard" : "/my-account";
                 }
               }}
               className="text-xl font-serif text-gold py-4 text-left border-b border-border block w-full"
