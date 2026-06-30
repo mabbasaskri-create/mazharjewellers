@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { ADMIN_EMAIL } from "@/lib/firebase";
 
 const NAV_LINKS = [
   { label: "HOME", href: "/" },
@@ -15,7 +16,32 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { user, isAdmin, signInWithGoogle, logout } = useAuth();
+
+  const handlePersonClick = async () => {
+    if (user) {
+      if (isAdmin) {
+        window.location.href = "/admin/dashboard";
+      } else {
+        setUserMenuOpen(!userMenuOpen);
+      }
+    } else {
+      const res = await signInWithGoogle();
+      if (res.success && res.email) {
+        if (res.email === ADMIN_EMAIL) {
+          window.location.href = "/admin/dashboard";
+        } else {
+          window.location.href = "/orders";
+        }
+      }
+    }
+  };
+
+  const handleLogout = async () => {
+    setUserMenuOpen(false);
+    await logout();
+  };
 
   return (
     <>
@@ -38,25 +64,35 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-4 items-center relative">
             <button
-              onClick={async () => {
-                if (user) {
-                  if (isAdmin) {
-                    window.location.href = "/admin/dashboard";
-                  }
-                } else {
-                  const res = await signInWithGoogle();
-                  if (res.success) {
-                    window.location.href = "/admin/dashboard";
-                  }
-                }
-              }}
-              className="nav-icon-btn text-xl text-mid transition-colors hover:text-gold bg-none border-none cursor-pointer p-1 leading-none"
+              onClick={handlePersonClick}
+              className="nav-icon-btn text-xl text-mid transition-colors hover:text-gold bg-none border-none cursor-pointer p-1 leading-none relative"
               aria-label="Account"
             >
               👤
             </button>
+
+            {user && !isAdmin && userMenuOpen && (
+              <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                <div className="px-4 py-2 border-b border-gray-50">
+                  <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                </div>
+                <Link
+                  href="/orders"
+                  onClick={() => setUserMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                >
+                  📦 My Orders
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2 px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 w-full text-left transition-colors"
+                >
+                  🚪 Sign Out
+                </button>
+              </div>
+            )}
 
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -89,6 +125,37 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
+          {user && !isAdmin && (
+            <>
+              <Link
+                href="/orders"
+                onClick={() => setMenuOpen(false)}
+                className="text-xl font-serif text-black py-4 border-b border-border block"
+              >
+                📦 My Orders
+              </Link>
+              <button
+                onClick={() => { setMenuOpen(false); logout(); }}
+                className="text-xl font-serif text-red-500 py-4 text-left border-b border-border block"
+              >
+                🚪 Sign Out
+              </button>
+            </>
+          )}
+          {!user && (
+            <button
+              onClick={async () => {
+                setMenuOpen(false);
+                const res = await signInWithGoogle();
+                if (res.success && res.email) {
+                  window.location.href = res.email === ADMIN_EMAIL ? "/admin/dashboard" : "/orders";
+                }
+              }}
+              className="text-xl font-serif text-gold py-4 text-left border-b border-border block w-full"
+            >
+              🔑 Sign In
+            </button>
+          )}
         </div>
       )}
     </>

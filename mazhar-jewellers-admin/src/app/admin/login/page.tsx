@@ -2,22 +2,32 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { ADMIN_EMAIL } from "@/lib/firebase";
 
 export default function AdminLoginPage() {
   const { user, loading, isAdmin, signInWithGoogle } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && user && isAdmin) {
-      router.push("/admin/dashboard");
+    if (!loading && user) {
+      if (isAdmin) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/orders");
+      }
     }
   }, [user, loading, isAdmin, router]);
 
   const handleLogin = async () => {
     const res = await signInWithGoogle();
-    if (res.success) {
-      router.push("/admin/dashboard");
+    if (res.success && res.email) {
+      if (res.email === ADMIN_EMAIL) {
+        router.push("/admin/dashboard");
+      } else {
+        router.push("/orders");
+      }
     } else if (res.error) {
       alert(res.error);
     }
@@ -30,6 +40,8 @@ export default function AdminLoginPage() {
       </div>
     );
   }
+
+  if (user) return null;
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f8f9fa] px-4">
@@ -71,6 +83,10 @@ export default function AdminLoginPage() {
           <p className="mt-6 text-xs text-gray-400">
             Only authorized admin accounts can access this panel.
           </p>
+
+          <Link href="/" className="block mt-4 text-xs text-gold hover:underline">
+            ← Back to store
+          </Link>
         </div>
       </div>
     </div>

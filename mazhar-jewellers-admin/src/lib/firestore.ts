@@ -281,6 +281,16 @@ export async function getOrders(): Promise<Order[]> {
   return snap.docs.map((d) => toDoc<Order>(d.id, d.data()));
 }
 
+export async function getOrdersByEmail(email: string): Promise<Order[]> {
+  const q = query(
+    collection(db, "orders"),
+    where("customer.email", "==", email),
+    orderBy("createdAt", "desc")
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => toDoc<Order>(d.id, d.data()));
+}
+
 export async function searchProducts(searchTerm: string): Promise<ProductWithNames[]> {
   const q = query(
     collection(db, "products"),

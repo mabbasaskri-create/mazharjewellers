@@ -19,7 +19,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   isAdmin: boolean;
-  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>;
+  signInWithGoogle: () => Promise<{ success: boolean; email?: string; error?: string }>;
   logout: () => Promise<void>;
 }
 
@@ -27,7 +27,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   isAdmin: false,
-  signInWithGoogle: async () => ({ success: false }),
+  signInWithGoogle: async () => ({ success: false, email: "" }),
   logout: async () => {},
 });
 
@@ -48,12 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signInWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      const email = result.user.email;
-      if (email !== ADMIN_EMAIL) {
-        await signOut(auth);
-        return { success: false, error: "Access Denied" };
-      }
-      return { success: true };
+      return { success: true, email: result.user.email || "" };
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Sign in failed";
       return { success: false, error: message };
