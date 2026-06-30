@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Admin-only write access, public read
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'm.abbas.askri@gmail.com';
+    }
+
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    // Public data - anyone can read
+    match /heroBanner/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /collections/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /categories/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /products/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /reviews/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /settings/{doc} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // User-specific data
+    match /users/{userId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /wishlist/{doc} {
+      allow read, write: if isLoggedIn();
+    }
+
+    match /cart/{doc} {
+      allow read, write: if isLoggedIn();
+    }
+
+    // Orders - admin can read/write all, users can read their own
+    match /orders/{orderId} {
+      allow read: if isAdmin() || (isLoggedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isLoggedIn();
+      allow update, delete: if isAdmin();
+    }
+
+    // Analytics - admin only
+    match /analytics/{doc} {
+      allow read, write: if isAdmin();
+    }
+
+    // Deny everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
